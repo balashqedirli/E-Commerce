@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./CSS/LoginSignup.css";
 
 const LoginSignup = () => {
   const [state, setState] = useState("Login");
-
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -12,6 +13,28 @@ const LoginSignup = () => {
 
   const changeHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const notify = (message, type) => {
+    if (type === "success") {
+      toast.success(message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    } else if (type === "error") {
+      toast.error(message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    }
   };
 
   const login = async () => {
@@ -30,15 +53,16 @@ const LoginSignup = () => {
 
       const data = await response.json();
       if (!data.success) {
-        alert(data.errors);
+        notify(data.errors || "Login failed. Please check your credentials.", "error");
         return;
       }
 
       localStorage.setItem("auth-token", data.token);
-      window.location.replace("/");
+      notify("Login successful! Redirecting...", "success");
+      setTimeout(() => window.location.replace("/"), 2000);
     } catch (error) {
       console.error("Login Error:", error);
-      alert("Failed to log in. Please try again.");
+      notify("Failed to log in. Please try again later.", "error");
     }
   };
 
@@ -55,15 +79,16 @@ const LoginSignup = () => {
 
       const data = await response.json();
       if (!data.success) {
-        alert(data.errors);
+        notify(data.errors || "Signup failed. Please check your details.", "error");
         return;
       }
 
       localStorage.setItem("auth-token", data.token);
-      window.location.replace("/");
+      notify("Signup successful! Redirecting...", "success");
+      setTimeout(() => window.location.replace("/"), 2000);
     } catch (error) {
       console.error("Signup Error:", error);
-      alert("Failed to sign up. Please try again.");
+      notify("Failed to sign up. Please try again later.", "error");
     }
   };
 
@@ -100,17 +125,18 @@ const LoginSignup = () => {
           Continue
         </button>
         {state === "Sign Up" ? (
-          <p>
+          <p className="action-text">
             Already have an account?{" "}
             <span onClick={() => setState("Login")}>Login Here</span>
           </p>
         ) : (
-          <p>
+          <p className="action-text">
             Create an account?{" "}
             <span onClick={() => setState("Sign Up")}>Sign Up</span>
           </p>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 };

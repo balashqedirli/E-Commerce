@@ -60,6 +60,44 @@
   font-weight: 500;
 }
 
+p {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #666;
+  font-weight: 400;
+}
+
+p span {
+  color: #ff6f61;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+p span:hover {
+  color: #e55b50;
+  text-decoration: underline;
+}
+
+.action-text {
+  margin-top: 20px;
+  font-size: 15px;
+  color: #444;
+}
+
+.action-text span {
+  font-weight: bold;
+  color: #ff6f61;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.action-text span:hover {
+  color: #e55b50;
+  transform: scale(1.05);
+}
+
 @media (max-width: 1280px) {
   .loginsignup {
     padding-top: 50px;
