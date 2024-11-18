@@ -2,6 +2,7 @@ node_modules/
 build/
 dist/
 
+# ignore
 .vscode/
 .DS_Store
 *.log
