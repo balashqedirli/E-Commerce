@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 
 export const ShopContext = createContext(null);
+const url = "https://e-commerce-backend-q6z2.onrender.com"
 
 const getDefaultCart = () => {
   let cart = {};
